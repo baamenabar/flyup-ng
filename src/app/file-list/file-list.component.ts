@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-
-interface fileDisplay {
-    name: string;
-    mimeType?: string;
-    size: number;
-    date: string;
-}
+import { FileDisplay } from '../file';
+import { FilesService } from '../files.service';
+import { ActivatedRoute } from '../../../node_modules/@angular/router';
+import { Location } from '../../../node_modules/@angular/common';
+import { CompileNgModuleMetadata, preserveWhitespacesDefault } from '../../../node_modules/@angular/compiler';
 
 @Component({
     selector: 'app-file-list',
@@ -13,13 +11,20 @@ interface fileDisplay {
     styleUrls: ['./file-list.component.scss'],
 })
 export class FileListComponent implements OnInit {
-    files: fileDisplay[] = [
-        { name: 'one-file.jpg', size: 5600, date: '2018-06-11' },
-        { name: 'one-file (2).jpg', size: 3600, date: '2018-05-01' },
-        { name: 'second-file.jpg', size: 15200, date: '2018-06-10' },
-        { name: 'one-anim.gif', size: 4750, date: '2018-06-03' },
-    ];
-    constructor() {}
+    files: FileDisplay[] = [];
+    currentUrl = '';
 
-    ngOnInit() {}
+    /**
+     * Constructor Creates an instance of FileListComponent.
+     */
+    constructor(private fileService: FilesService, private route: ActivatedRoute, private location: Location) {}
+
+    ngOnInit() {
+        this.currentUrl = this.route.snapshot.url.join('/');
+        this.getFiles();
+    }
+
+    getFiles(): void {
+        this.fileService.getFiles(this.currentUrl).subscribe(files => (this.files = files));
+    }
 }
