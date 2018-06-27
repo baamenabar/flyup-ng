@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FileDisplay } from '../file';
 import { FilesService } from '../files.service';
-import { ActivatedRoute } from '../../../node_modules/@angular/router';
-import { Location } from '../../../node_modules/@angular/common';
-import { CompileNgModuleMetadata, preserveWhitespacesDefault } from '../../../node_modules/@angular/compiler';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'app-file-list',
@@ -22,6 +21,7 @@ export class FileListComponent implements OnInit {
     ngOnInit() {
         this.currentUrl = this.route.snapshot.url.join('/');
         this.getFiles();
+        this.route.url.subscribe(theSegment => console.log(theSegment));
     }
 
     getFiles(): void {
