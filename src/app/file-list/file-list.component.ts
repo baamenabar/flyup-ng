@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FileDisplay } from '../file';
 import { FilesService } from '../files.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, UrlSegment } from '@angular/router';
 import { Location } from '@angular/common';
 
 @Component({
@@ -19,12 +19,12 @@ export class FileListComponent implements OnInit {
     constructor(private fileService: FilesService, private route: ActivatedRoute, private location: Location) {}
 
     ngOnInit() {
-        this.currentUrl = this.route.snapshot.url.join('/');
-        this.getFiles();
-        this.route.url.subscribe(theSegment => console.log(theSegment));
+        // we susbribe to the url changes and try to load the files for current path.
+        this.route.url.subscribe(segments => this.getFiles(segments));
     }
 
-    getFiles(): void {
+    getFiles(theSegments: UrlSegment[]): void {
+        this.currentUrl = theSegments.join('/');
         this.fileService.getFiles(this.currentUrl).subscribe(files => (this.files = files));
     }
 }
