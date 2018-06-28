@@ -6,10 +6,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FileListComponent } from './file-list/file-list.component';
+import { MatTableModule, MatSortModule } from '@angular/material';
 
 @NgModule({
     declarations: [AppComponent, FileListComponent],
-    imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, HttpClientModule],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        MatTableModule,
+        MatSortModule,
+    ],
     providers: [],
     bootstrap: [AppComponent],
 })
