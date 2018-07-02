@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FileDisplay } from '../file';
+import { FileDisplay } from '../file-display';
 import { FilesService } from '../files.service';
 import { ActivatedRoute, UrlSegment } from '@angular/router';
 import { Location } from '@angular/common';
@@ -14,7 +14,7 @@ export class FileListComponent implements OnInit {
     files: FileDisplay[] = [];
     currentUrl = '';
     displayedColumns: string[] = ['name', 'size', 'mtime'];
-    dataSource = new MatTableDataSource(this.files);
+    dataSource = new MatTableDataSource();
 
     @ViewChild(MatSort) sort: MatSort;
 
@@ -33,6 +33,12 @@ export class FileListComponent implements OnInit {
 
     getFiles(theSegments: UrlSegment[]): void {
         this.currentUrl = theSegments.join('/');
-        this.fileService.getFiles(this.currentUrl).subscribe(files => (this.files = files));
+        this.fileService.getFiles(this.currentUrl).subscribe(files => {
+            this.files = files;
+            this.dataSource = new MatTableDataSource(this.files);
+
+            // we reasign the sort from the component to the data source
+            this.dataSource.sort = this.sort;
+        });
     }
 }

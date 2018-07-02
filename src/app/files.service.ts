@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { MockFileList } from './mock-file-list';
-import { of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { FileDisplay } from './file';
+import { FileDisplay } from './file-display';
 
 @Injectable({
     providedIn: 'root',
