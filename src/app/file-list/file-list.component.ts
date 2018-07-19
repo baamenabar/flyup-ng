@@ -13,7 +13,7 @@ import { MatSort, MatTableDataSource } from '@angular/material';
 export class FileListComponent implements OnInit {
     files: FileDisplay[] = [];
     currentUrl = '';
-    displayedColumns: string[] = ['name', 'size', 'mtime'];
+    displayedColumns: string[] = ['name', 'size', 'type', 'mtime'];
     dataSource = new MatTableDataSource();
 
     @ViewChild(MatSort) sort: MatSort;

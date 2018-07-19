@@ -7,9 +7,10 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FileListComponent } from './file-list/file-list.component';
 import { MatTableModule, MatSortModule } from '@angular/material';
+import { BytesPipe } from './pipes/bytes.pipe';
 
 @NgModule({
-    declarations: [AppComponent, FileListComponent],
+    declarations: [AppComponent, FileListComponent, BytesPipe],
     imports: [
         BrowserModule,
         AppRoutingModule,
