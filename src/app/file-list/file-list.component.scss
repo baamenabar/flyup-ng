@@ -10,3 +10,17 @@ table {
 th.mat-sort-header-sorted {
     color: black;
 }
+
+.entity-icon {
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+}
+
+.mat-column-name {
+    &:hover {
+        background-color: #f6f6f6;
+        border-left: 3px solid #09bfd8;
+        padding-left: 21px;
+    }
+}

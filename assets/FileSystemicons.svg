@@ -4,13 +4,13 @@
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" viewBox="0 0 264.567 264.567" width="264.57" height="264.57">
     <defs>
         <g id="directory">
-        <path d="M4 36.25L247.08 36.25L247.08 220.25L4 220.25L4 36.25Z" opacity="1" fill="#625c43" fill-opacity="1"></path>
-        <path d="M238.51 36.34L238.51 212.22L4 212.22L4 4L85.18 4L108.73 36.34L108.73 36.34L238.51 36.34Z" opacity="1" fill="#9e9260" fill-opacity="1"></path>
-    </g>
-    <g id="file">
-            <path d="M158 218L8 218L8 8L90.02 8L158 75.97L158 218Z" opacity="1" fill="#f9f7eb" fill-opacity="1" stroke="#625c43" stroke-width="6" stroke-opacity="1"></path>
-            <path d="M89.99 10L154.99 75L89.99 75L89.99 10Z" opacity="1" fill="#9f9a7b" fill-opacity="1"></path>
-    </g>
+            <path d="M4 36.25L247.08 36.25L247.08 220.25L4 220.25L4 36.25Z" opacity="1" fill="#625c43" fill-opacity="1"></path>
+            <path d="M238.51 36.34L238.51 212.22L4 212.22L4 4L85.18 4L108.73 36.34L108.73 36.34L238.51 36.34Z" opacity="1" fill="#9e9260" fill-opacity="1"></path>
+        </g>
+        <g id="file">
+                <path d="M158 218L8 218L8 8L90.02 8L158 75.97L158 218Z" opacity="1" fill="#f9f7eb" fill-opacity="1" stroke="#625c43" stroke-width="6" stroke-opacity="1"></path>
+                <path d="M89.99 10L154.99 75L89.99 75L89.99 10Z" opacity="1" fill="#9f9a7b" fill-opacity="1"></path>
+        </g>
     </defs>
     <use xlink:href="#directory"></use>
     <use xlink:href="#file"></use>

@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FileDisplay } from '../file-display';
 import { FilesService } from '../files.service';
-import { ActivatedRoute, UrlSegment } from '@angular/router';
+import { ActivatedRoute, UrlSegment, RouterEvent, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatSort, MatTableDataSource } from '@angular/material';
+
+const DIRECTORY_MIME = 'DIRECTORY';
 
 @Component({
     selector: 'app-file-list',
@@ -21,7 +23,12 @@ export class FileListComponent implements OnInit {
     /**
      * Constructor Creates an instance of FileListComponent.
      */
-    constructor(private fileService: FilesService, private route: ActivatedRoute, private location: Location) {}
+    constructor(
+        private fileService: FilesService,
+        private route: ActivatedRoute,
+        private router: Router,
+        private location: Location
+    ) {}
 
     ngOnInit() {
         // we susbribe to the url changes and try to load the files for current path.
@@ -40,5 +47,12 @@ export class FileListComponent implements OnInit {
             // we reasign the sort from the component to the data source
             this.dataSource.sort = this.sort;
         });
+    }
+
+    entityClicked(entity): void {
+        // for now we just deal with folders
+        if (entity.type === DIRECTORY_MIME) {
+            this.router.navigate([entity.name]);
+        }
     }
 }

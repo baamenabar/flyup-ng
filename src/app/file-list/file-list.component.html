@@ -3,7 +3,11 @@
     <!-- Name Column -->
     <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        <td mat-cell *matCellDef="let element" (click)="entityClicked(element)">
+            <svg class="entity-icon" viewBox="-10 -10 270 270" xmlns="http://www.w3.org/2000/svg">
+                <use attr.xlink:href="{{ element.type==='DIRECTORY' ? '#directory' : '#file' }}" />
+            </svg>
+            {{element.name}} </td>
     </ng-container>
 
     <!-- Size Column -->
