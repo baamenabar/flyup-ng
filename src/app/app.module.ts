@@ -8,9 +8,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FileListComponent } from './file-list/file-list.component';
 import { MatTableModule, MatSortModule } from '@angular/material';
 import { BytesPipe } from './pipes/bytes.pipe';
+import { FileWindowComponent } from './file-window/file-window.component';
+import { UploadModule } from './upload/upload.module';
 
 @NgModule({
-    declarations: [AppComponent, FileListComponent, BytesPipe],
+    declarations: [AppComponent, FileListComponent, BytesPipe, FileWindowComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
@@ -18,6 +20,7 @@ import { BytesPipe } from './pipes/bytes.pipe';
         HttpClientModule,
         MatTableModule,
         MatSortModule,
+        UploadModule,
     ],
     providers: [],
     bootstrap: [AppComponent],

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FileDisplay } from '../file-display';
-import { FilesService } from '../files.service';
+import { FileDisplay } from './service/file-display';
+import { FilesService } from './service/files.service';
 import { ActivatedRoute, UrlSegment, RouterEvent, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatSort, MatTableDataSource } from '@angular/material';

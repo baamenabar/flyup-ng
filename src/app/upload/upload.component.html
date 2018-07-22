@@ -1,0 +1,28 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <img width="120" alt="Flyimg Logo" src="https://raw.githubusercontent.com/flyimg/graphic-assets/master/logo/raster/flyimg-logo-rgb.png">
+        <span class="example-spacer"></span>
+        <div class="button-row">
+            <button mat-raised-button color="basic">
+                upload files
+                <mat-icon>file_upload</mat-icon>
+            </button>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>
+<ul class="upload-queue">
+    <li class="queued-file" *ngFor="let file of files">
+        <mat-progress-bar [value]="file.progress">
+        </mat-progress-bar>
+
+        <p class="queued-file-label mat-list-item">{{file.data.name}}
+            <button *ngIf="file.canCancel" mat-icon-button color="primary">
+                <mat-icon aria-label="Cancel">cancel</mat-icon>
+            </button>
+            <button *ngIf="file.canRetry" mat-icon-button color="primary">
+                <mat-icon aria-label="Retry">refresh</mat-icon>
+            </button>
+        </p>
+    </li>
+</ul>
+<input type="file" name="fileUpload" class="file-upload-holder" multiple="multiple" accept="{{accept}}">

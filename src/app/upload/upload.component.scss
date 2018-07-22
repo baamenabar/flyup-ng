@@ -1,0 +1,24 @@
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.file-upload-holder {
+    display: none;
+}
+
+.upload-queue {
+    padding: 0;
+}
+.queued-file {
+    list-style-type: none;
+    margin: 0.5em 0;
+    padding: 4px 0;
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+    box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.2);
+}
+.queued-file-label {
+    margin: 0 1em;
+    display: flex;
+    align-items: center;
+}
