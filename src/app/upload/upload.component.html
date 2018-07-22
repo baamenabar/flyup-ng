@@ -3,7 +3,7 @@
         <img width="120" alt="Flyimg Logo" src="https://raw.githubusercontent.com/flyimg/graphic-assets/master/logo/raster/flyimg-logo-rgb.png">
         <span class="example-spacer"></span>
         <div class="button-row">
-            <button mat-raised-button color="basic">
+            <button mat-raised-button color="basic" (click)="onUploadButtonClicked()">
                 upload files
                 <mat-icon>file_upload</mat-icon>
             </button>
@@ -11,6 +11,7 @@
     </mat-toolbar-row>
 </mat-toolbar>
 <ul class="upload-queue">
+    <!-- TODO: add animation here below -->
     <li class="queued-file" *ngFor="let file of files">
         <mat-progress-bar [value]="file.progress">
         </mat-progress-bar>
@@ -25,4 +26,4 @@
         </p>
     </li>
 </ul>
-<input type="file" name="fileUpload" class="file-upload-holder" multiple="multiple" accept="{{accept}}">
+<input #fileInput type="file" name="{{postFieldName}}" class="file-upload-holder" multiple accept="{{accept}}" (change)="fileInputChanged($event)">
