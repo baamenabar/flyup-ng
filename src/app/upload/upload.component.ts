@@ -38,5 +38,6 @@ export class UploadComponent {
     fileInputChanged(event) {
         const selectedFiles: FileList = event.target.files;
         console.log('FI changed', selectedFiles);
+        this.uploadService.addFiles(selectedFiles);
     }
 }
