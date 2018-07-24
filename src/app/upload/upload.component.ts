@@ -10,12 +10,6 @@ import { UploadService } from './service/upload.service';
 export class UploadComponent {
     @Input() accept = 'image/*';
 
-    /** The instanciator of this component must pass tha correct url. That should be coming form the env configs */
-    @Input() apiTarget = 'http://localhost:3000/api/upload';
-
-    /** This sets the File post field name, it dafults to the default in flyup-back */
-    @Input() postFieldName = 'uploaded_file';
-
     @ViewChild('fileInput') fileInput: ElementRef;
 
     files: FileUploadInterface[];
@@ -37,7 +31,9 @@ export class UploadComponent {
 
     fileInputChanged(event) {
         const selectedFiles: FileList = event.target.files;
-        console.log('FI changed', selectedFiles);
         this.uploadService.addFiles(selectedFiles);
+
+        // resets the input so Filelist is empty for the next time.
+        event.target.value = null;
     }
 }
