@@ -3,8 +3,11 @@ import { HttpClient, HttpRequest, HttpEventType, HttpResponse, HttpErrorResponse
 import { FileUploadInterface } from '../file-upload.interface';
 import { Subject, of } from 'rxjs';
 import { map, tap, last, catchError } from 'rxjs/operators';
-import { CloseScrollStrategy } from '@angular/cdk/overlay';
 
+/**
+ * Service that holds files to be uploaded and handles their http connection.
+ * Heavilly based on: https://www.codeproject.com/Articles/1236006/Build-a-file-upload-component-with-Angular-Materia
+ */
 @Injectable({
     providedIn: 'root',
 })
@@ -39,6 +42,20 @@ export class UploadService {
             });
         }
         this.uploadFiles();
+    }
+
+    /**
+     * Stops the http upload connection and removes the file form the upload list.
+     * @param file the file to remove
+     */
+    cancelFileUpload(file: FileUploadInterface) {
+        file.sub.unsubscribe();
+        this.removeFileFromArray(file);
+    }
+
+    retryUpload(file: FileUploadInterface) {
+        this.uploadOneFile(file);
+        file.canRetry = false;
     }
 
     private uploadFiles() {
