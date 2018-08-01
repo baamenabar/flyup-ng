@@ -15,7 +15,7 @@ const DIRECTORY_MIME = 'DIRECTORY';
 export class FileListComponent implements OnInit {
     files: FileDisplay[] = [];
     currentUrl = '';
-    displayedColumns: string[] = ['name', 'size', 'type', 'mtime'];
+    displayedColumns: string[] = ['name', 'size', 'type', 'mtime', 'actions'];
     dataSource = new MatTableDataSource();
 
     @ViewChild(MatSort) sort: MatSort;
@@ -54,5 +54,9 @@ export class FileListComponent implements OnInit {
         if (entity.type === DIRECTORY_MIME) {
             this.router.navigate([entity.name]);
         }
+    }
+
+    deleteFileButtonClicked(entity: FileDisplay) {
+        console.log('want to delete ', entity);
     }
 }

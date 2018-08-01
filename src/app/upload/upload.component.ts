@@ -2,6 +2,7 @@ import { Component, Input, ViewChild, ElementRef } from '@angular/core';
 import { FileUploadInterface } from './file-upload.interface';
 import { UploadService } from './service/upload.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { FilesService } from '../file-list/service/files.service';
 
 @Component({
     selector: 'app-upload',
@@ -34,7 +35,7 @@ export class UploadComponent {
      *                        and handle the http connections for each
      * @todo: find a better way to expose the cancel and retry methods to the template. For now this will do.
      */
-    constructor(public uploadService: UploadService) {
+    constructor(public uploadService: UploadService, private fileService: FilesService) {
         // not happy about this pattern. Looks sketchy... if I only knew more about obserbables.
         this.files = uploadService.files;
     }
@@ -50,5 +51,16 @@ export class UploadComponent {
 
         // resets the input so Filelist is empty for the next time.
         event.target.value = null;
+    }
+
+    /**
+     * Handles click events from the add folder button.
+     * TODO: emmit from here
+     * TODO: move this out of this component.
+     */
+    addFolderButtonClicked() {
+        this.fileService.createFolder(window.prompt('Folder name', '')).subscribe(data => {
+            console.log('the data back', data);
+        });
     }
 }

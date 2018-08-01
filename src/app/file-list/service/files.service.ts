@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FileDisplay } from './file-display';
 
 @Injectable({
@@ -12,5 +12,12 @@ export class FilesService {
     getFiles(routerUrl: string) {
         console.log('requesting list for URL:', routerUrl);
         return this.http.get<FileDisplay[]>(this.filesApiUrl + routerUrl);
+    }
+
+    createFolder(folderName: string) {
+        // simple replace for non simple folder friendly names.
+        const cleanFolderName = folderName.replace(/[^a-zA-Z0-9_-]/gm, '');
+        console.log('requesting to create folder:', cleanFolderName);
+        return this.http.post(this.filesApiUrl, { folderName: cleanFolderName });
     }
 }

@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FileListComponent } from './file-list/file-list.component';
-import { MatTableModule, MatSortModule } from '@angular/material';
+import { MatTableModule, MatSortModule, MatIconModule, MatButtonModule } from '@angular/material';
 import { BytesPipe } from './pipes/bytes.pipe';
 import { FileWindowComponent } from './file-window/file-window.component';
 import { UploadModule } from './upload/upload.module';
@@ -20,6 +20,8 @@ import { UploadModule } from './upload/upload.module';
         HttpClientModule,
         MatTableModule,
         MatSortModule,
+        MatIconModule,
+        MatButtonModule,
         UploadModule,
     ],
     providers: [],
