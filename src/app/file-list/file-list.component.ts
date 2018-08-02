@@ -5,6 +5,8 @@ import { ActivatedRoute, UrlSegment, RouterEvent, Router } from '@angular/router
 import { Location } from '@angular/common';
 import { MatSort, MatTableDataSource } from '@angular/material';
 
+// check material icons list at: https://material.io/tools/icons/?icon=delete_forever&style=baseline
+
 const DIRECTORY_MIME = 'DIRECTORY';
 
 @Component({

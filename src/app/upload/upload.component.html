@@ -3,6 +3,10 @@
         <img width="120" alt="Flyimg Logo" src="https://raw.githubusercontent.com/flyimg/graphic-assets/master/logo/raster/flyimg-logo-rgb.png">
         <span class="example-spacer"></span>
         <div class="button-row">
+            <button mat-icon-button (click)="upOneLevelButtonClicked()">
+                <mat-icon>folder</mat-icon>
+                <mat-icon class="overlay-icon">subdirectory_arrow_left</mat-icon>
+            </button>
             <button mat-icon-button (click)="addFolderButtonClicked()">
                 <mat-icon>create_new_folder</mat-icon>
             </button>

@@ -9,6 +9,7 @@
 .upload-queue {
     padding: 0;
 }
+
 .queued-file {
     list-style-type: none;
     margin: 0.5em 0;
@@ -17,8 +18,17 @@
     border-bottom: 1px solid #ccc;
     box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.2);
 }
+
 .queued-file-label {
     margin: 0 1em;
     display: flex;
     align-items: center;
+}
+
+// TODO: move this out of here
+:host ::ng-deep .overlay-icon {
+    color: #3f51b5;
+    position: absolute;
+    transform: rotate(90deg) translateX(9px) translateY(25px);
+    font-size: 1.25em;
 }
