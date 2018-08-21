@@ -17,10 +17,11 @@ const DIRECTORY_MIME = 'DIRECTORY';
 export class FileListComponent implements OnInit {
     files: FileDisplay[] = [];
     currentUrl = '';
-    displayedColumns: string[] = ['name', 'size', 'type', 'mtime', 'actions'];
+    displayedColumns: string[] = ['name', 'size', 'mimetype', 'mtime', 'actions'];
     dataSource = new MatTableDataSource();
 
-    @ViewChild(MatSort) sort: MatSort;
+    @ViewChild(MatSort)
+    sort: MatSort;
 
     /**
      * Constructor Creates an instance of FileListComponent.

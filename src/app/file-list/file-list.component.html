@@ -23,9 +23,9 @@
     </ng-container>
 
     <!-- File Type Column -->
-    <ng-container matColumnDef="type">
+    <ng-container matColumnDef="mimetype">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Mime type </th>
-        <td mat-cell *matCellDef="let element"> {{element.type === 'DIRECTORY' ? '': element.type}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.mimetype === 'DIRECTORY' ? '': element.mimetype}} </td>
     </ng-container>
 
 

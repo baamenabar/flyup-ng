@@ -70,6 +70,9 @@ export class UploadComponent {
         });
     }
 
+    /**
+     * TODO: use a service to deal with routing
+     */
     upOneLevelButtonClicked() {
         const urlParts = this.route.snapshot.url;
         const pathEndIndex = urlParts.length - 1;
