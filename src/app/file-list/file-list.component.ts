@@ -54,8 +54,8 @@ export class FileListComponent implements OnInit {
 
     entityClicked(entity): void {
         // for now we just deal with folders
-        if (entity.type === DIRECTORY_MIME) {
-            this.router.navigate([entity.name]);
+        if (entity.mimetype === DIRECTORY_MIME) {
+            this.router.navigate([this.currentUrl, entity.name]);
         }
     }
 

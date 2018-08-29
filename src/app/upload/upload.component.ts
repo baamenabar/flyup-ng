@@ -24,9 +24,11 @@ import { Router, ActivatedRoute } from '@angular/router';
     ],
 })
 export class UploadComponent {
-    @Input() accept = 'image/*';
+    @Input()
+    accept = 'image/*';
 
-    @ViewChild('fileInput') fileInput: ElementRef;
+    @ViewChild('fileInput')
+    fileInput: ElementRef;
 
     files: FileUploadInterface[];
 
@@ -65,9 +67,11 @@ export class UploadComponent {
      * TODO: move this out of this component.
      */
     addFolderButtonClicked() {
-        this.fileService.createFolder(window.prompt('Folder name', '')).subscribe(data => {
-            console.log('the data back', data);
-        });
+        this.fileService
+            .createFolder(this.route.snapshot.url.join('/'), window.prompt('Folder name', ''))
+            .subscribe(data => {
+                console.log('the data back', data);
+            });
     }
 
     /**
