@@ -26,12 +26,7 @@ export class FileListComponent implements OnInit {
     /**
      * Constructor Creates an instance of FileListComponent.
      */
-    constructor(
-        private fileService: FilesService,
-        private route: ActivatedRoute,
-        private router: Router,
-        private location: Location
-    ) {}
+    constructor(private fileService: FilesService, private route: ActivatedRoute, private router: Router) {}
 
     ngOnInit() {
         // we susbribe to the url changes and try to load the files for current path.
@@ -60,6 +55,12 @@ export class FileListComponent implements OnInit {
     }
 
     deleteFileButtonClicked(entity: FileDisplay) {
-        console.log('want to delete ', entity);
+        console.log('want to delete ', entity.name);
+        if (
+            window.confirm(`Do you really want to delete: ${entity.name} ?
+This can not be undone.`)
+        ) {
+            this.fileService.delete(this.route.snapshot.url.join('/'), entity.name);
+        }
     }
 }
