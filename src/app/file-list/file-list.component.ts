@@ -4,6 +4,7 @@ import { FilesService } from './service/files.service';
 import { ActivatedRoute, UrlSegment, RouterEvent, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatSort, MatTableDataSource } from '@angular/material';
+import { Observable } from 'rxjs';
 
 // check material icons list at: https://material.io/tools/icons/?icon=delete_forever&style=baseline
 
@@ -55,12 +56,14 @@ export class FileListComponent implements OnInit {
     }
 
     deleteFileButtonClicked(entity: FileDisplay) {
-        console.log('want to delete ', entity.name);
+        console.log('want to delete ', this.currentUrl, entity.name);
         if (
             window.confirm(`Do you really want to delete: ${entity.name} ?
 This can not be undone.`)
         ) {
-            this.fileService.delete(this.route.snapshot.url.join('/'), entity.name);
+            this.fileService.delete(this.currentUrl, entity.name).subscribe(response => {
+                console.log('deleted', response);
+            });
         }
     }
 }

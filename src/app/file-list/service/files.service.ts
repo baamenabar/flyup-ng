@@ -29,6 +29,7 @@ export class FilesService {
         );
     }
     delete(targetPath, entityName) {
+        console.log('service wants to delete: ', this.filesApiUrl + targetPath + '/' + entityName);
         return this.http.delete(this.filesApiUrl + targetPath + '/' + entityName).pipe(
             tap(() => {
                 console.log('deleted: refresh the file list');

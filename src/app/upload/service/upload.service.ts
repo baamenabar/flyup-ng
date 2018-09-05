@@ -20,7 +20,7 @@ export class UploadService {
     fileComplete$ = this.fileCompleteSource.asObservable();
 
     /** Target URL where to post the uploaded files to. This URL should be coming form the env configs */
-    private apiTarget = 'http://localhost:3000/api/upload';
+    private apiTarget = 'http://localhost:3000/api/media';
 
     /** This sets the File post field name, it defults to the default in flyup-back. This should be set in the envs */
     private postFieldName = 'uploaded_file';
@@ -68,6 +68,7 @@ export class UploadService {
         const fd = new FormData();
         fd.append(this.postFieldName, file.data);
 
+        // TODO: we need to update the route so we can post to any folder.
         const req = new HttpRequest('POST', this.apiTarget, fd, { reportProgress: true });
 
         file.inProgress = true;
