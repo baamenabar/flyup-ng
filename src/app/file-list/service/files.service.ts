@@ -4,15 +4,25 @@ import { FileDisplay } from './file-display';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { tap } from 'rxjs/operators';
+import { UploadService } from '../../upload/service/upload.service';
 
+/**
+ * Files facade service.
+ * Anything fealing with files is handled through here. Uploads? you connect to this service to do that
+ * File list? the list is kept here.
+ */
 @Injectable({
     providedIn: 'root',
 })
 export class FilesService {
     private filesApiUrl = 'http://localhost:3000/api/media/';
-    private currentUrl;
 
-    constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) {}
+    constructor(
+        private http: HttpClient,
+        private route: ActivatedRoute,
+        private router: Router,
+        private uploadService: UploadService
+    ) {}
 
     getFiles(routerUrl: string) {
         console.log('requesting list for URL:', routerUrl);

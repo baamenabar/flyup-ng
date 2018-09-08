@@ -41,7 +41,7 @@ export class FileListComponent implements OnInit {
         this.currentUrl = theSegments.join('/');
         this.fileService.getFiles(this.currentUrl).subscribe(files => {
             this.files = files;
-            this.dataSource = new MatTableDataSource(this.files);
+            this.dataSource.data = this.files;
 
             // we reasign the sort from the component to the data source
             this.dataSource.sort = this.sort;
