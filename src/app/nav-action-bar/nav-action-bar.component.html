@@ -1,7 +1,7 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row>
         <img width="120" alt="Flyimg Logo" src="https://raw.githubusercontent.com/flyimg/graphic-assets/master/logo/raster/flyimg-logo-rgb.png">
-        <span class="example-spacer"></span>
+        <span class="actions-spacer"></span>
         <div class="button-row">
             <button mat-icon-button (click)="upOneLevelButtonClicked()">
                 <mat-icon>folder</mat-icon>
@@ -10,7 +10,15 @@
             <button mat-icon-button (click)="addFolderButtonClicked()">
                 <mat-icon>create_new_folder</mat-icon>
             </button>
-            <ng-container *ngTemplateOutlet="uploadButton"></ng-container>
+            <!-- this <label>, with the 'for' attribute, triggers the "browse" behaviour of the file input element that
+                is inside the upload component (wherever it may be). -->
+            <label for="fileInputElement" class="upload-trigger">
+                <!-- this <a> element is just to look like a button, the magic is done by the <label> -->
+                <a href="javascript:;" mat-raised-button color="basic">
+                    upload files
+                    <mat-icon>file_upload</mat-icon>
+                </a>
+            </label>
         </div>
     </mat-toolbar-row>
 </mat-toolbar>

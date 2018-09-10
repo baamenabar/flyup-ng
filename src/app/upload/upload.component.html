@@ -13,12 +13,6 @@
         </p>
     </li>
 </ul>
-<input #fileInput type="file" name="notRelevant" class="file-upload-holder" multiple accept="{{accept}}" (change)="fileInputChanged($event)">
-
-<!-- this is supposed to be used outside the component -->
-<ng-template #uploadButton>
-    <button mat-raised-button color="basic" (click)="onUploadButtonClicked()">
-        upload files
-        <mat-icon>file_upload</mat-icon>
-    </button>
-</ng-template>
+<!-- the id="fileInputElement" can be targeted by external <label> elements using the for attribute -->
+<input id="fileInputElement" #fileInput type="file" name="notRelevant" class="file-upload-holder" multiple accept="{{accept}}"
+    (change)="fileInputChanged($event)">

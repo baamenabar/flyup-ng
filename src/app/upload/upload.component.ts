@@ -43,12 +43,6 @@ export class UploadComponent {
         this.files = uploadService.files;
     }
 
-    // FIXME: make this listen to an observable.
-    onUploadButtonClicked() {
-        // ask for files
-        this.fileInput.nativeElement.click();
-    }
-
     fileInputChanged(event) {
         const selectedFiles: FileList = event.target.files;
         this.uploadService.addFiles(selectedFiles);
