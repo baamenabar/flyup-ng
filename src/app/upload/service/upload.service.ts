@@ -12,7 +12,7 @@ import { map, tap, last, catchError } from 'rxjs/operators';
     providedIn: 'root',
 })
 export class UploadService {
-    files: FileUploadInterface[] = []; // = mockedFileList;
+    files: FileUploadInterface[] = [];
 
     private fileCompleteSource = new Subject<FileUploadInterface>();
 
@@ -28,7 +28,7 @@ export class UploadService {
     constructor(private http: HttpClient) {}
 
     addFiles(selectedFiles: FileList) {
-        // Why on earth do we keep getting these array like things back from the DOM?
+        // Why on earth do we keep getting these array-like things back from the DOM?
         const filesCount = selectedFiles.length;
         for (let i = 0; i < filesCount; i++) {
             const file = selectedFiles[i];
@@ -53,12 +53,20 @@ export class UploadService {
         this.removeFileFromArray(file);
     }
 
+    /**
+     * Gets triggered when user clicks the button to retry an upload after a failure.
+     *
+     * @param {FileUploadInterface} file to be retried
+     */
     retryUpload(file: FileUploadInterface) {
         this.uploadOneFile(file);
         file.canRetry = false;
     }
 
-    private uploadFiles() {
+    /**
+     * Iterate through filelist and trigger individual uploads
+     */
+    private uploadFiles(): void {
         // will iterate and upload here
         console.log('trigering upload of files');
         this.files.forEach(file => this.uploadOneFile(file));
@@ -100,7 +108,7 @@ export class UploadService {
                         default:
                             // no clue yet how can we get this EventType or what to do in that case...
                             // @see https://i.kym-cdn.com/photos/images/newsfeed/000/234/137/5c4.jpg
-                            console.log('Hum... guess it can hapen that it gets here', event);
+                            console.log('Hummm... guess it can hapen that it gets here', event);
                             break;
                     }
                 }),
@@ -135,22 +143,3 @@ export class UploadService {
         }
     }
 }
-
-export const mockedFileList: FileUploadInterface[] = [
-    {
-        data: new File([], 'someTestFilename.jpg'),
-        status: 'checking',
-        inProgress: false,
-        progress: 50,
-        canRetry: true,
-        canCancel: true,
-    },
-    {
-        data: new File([], 'test2.jpg'),
-        status: 'waiting',
-        inProgress: false,
-        progress: 1,
-        canRetry: true,
-        canCancel: true,
-    },
-];
