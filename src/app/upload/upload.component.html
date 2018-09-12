@@ -4,10 +4,10 @@
         </mat-progress-bar>
 
         <p class="queued-file-label mat-list-item">{{file.data.name}}
-            <button *ngIf="file.canCancel" (click)="uploadService.cancelFileUpload(file)" mat-icon-button color="primary">
+            <button *ngIf="file.canCancel" (click)="cancelUpload(file)" mat-icon-button color="primary">
                 <mat-icon aria-label="Cancel">cancel</mat-icon>
             </button>
-            <button *ngIf="file.canRetry" (click)="uploadService.retryUpload(file)" mat-icon-button color="primary">
+            <button *ngIf="file.canRetry" (click)="retryUpload(file)" mat-icon-button color="primary">
                 <mat-icon aria-label="Retry">refresh</mat-icon>
             </button>
         </p>

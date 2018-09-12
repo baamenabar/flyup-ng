@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FilesService } from '../file-list/service/files.service';
+import { FilesService } from '../service/files.service';
 import { Route, ActivatedRoute, Router } from '@angular/router';
 
 @Component({

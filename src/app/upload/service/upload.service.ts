@@ -17,7 +17,7 @@ export class UploadService {
     private fileCompleteSource = new Subject<FileUploadInterface>();
 
     /** Public interface that will publish when a file is done */
-    fileComplete$ = this.fileCompleteSource.asObservable();
+    fileComplete = this.fileCompleteSource.asObservable();
 
     /** Target URL where to post the uploaded files to. This URL should be coming form the env configs */
     private apiTarget = 'http://localhost:3000/api/media';
@@ -27,6 +27,7 @@ export class UploadService {
 
     constructor(private http: HttpClient) {}
 
+    // this should return an observable so the template can react when we are done.
     addFiles(selectedFiles: FileList) {
         // Why on earth do we keep getting these array-like things back from the DOM?
         const filesCount = selectedFiles.length;

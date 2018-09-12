@@ -4,7 +4,7 @@ import { FileDisplay } from './file-display';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { tap } from 'rxjs/operators';
-import { UploadService } from '../../upload/service/upload.service';
+import { UploadService } from '../upload/service/upload.service';
 
 /**
  * Files facade service.
@@ -15,6 +15,7 @@ import { UploadService } from '../../upload/service/upload.service';
     providedIn: 'root',
 })
 export class FilesService {
+    fileList: FileDisplay[] = [];
     private filesApiUrl = 'http://localhost:3000/api/media/';
 
     constructor(
@@ -38,6 +39,7 @@ export class FilesService {
             })
         );
     }
+
     delete(targetPath, entityName) {
         console.log('service wants to delete: ', this.filesApiUrl + targetPath + '/' + entityName);
         return this.http.delete(this.filesApiUrl + targetPath + '/' + entityName).pipe(
@@ -45,5 +47,12 @@ export class FilesService {
                 console.log('deleted: refresh the file list');
             })
         );
+    }
+
+    /**
+     * This prepends a file to the fileList
+     */
+    prepend(file: FileDisplay) {
+        this.fileList.push(file);
     }
 }

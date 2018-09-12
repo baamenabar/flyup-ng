@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { UploadComponent } from './upload.component';
 import { MatIconModule, MatButtonModule, MatProgressBarModule } from '@angular/material';
 import { UploadService } from './service/upload.service';
-import { FilesService } from '../file-list/service/files.service';
+import { FilesService } from '../service/files.service';
 
 @NgModule({
     imports: [CommonModule, MatIconModule, MatButtonModule, MatProgressBarModule],
