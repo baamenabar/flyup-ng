@@ -1,6 +1,7 @@
 export interface FileDisplay {
     name: string;
-    mimeType?: string;
+    mimetype?: string;
     size: number;
     mtime: string;
+    lastModified: Date;
 }

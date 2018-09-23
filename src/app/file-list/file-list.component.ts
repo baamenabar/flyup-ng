@@ -16,7 +16,7 @@ const DIRECTORY_MIME = 'DIRECTORY';
     styleUrls: ['./file-list.component.scss'],
 })
 export class FileListComponent implements OnInit {
-    files: FileDisplay[] = [];
+    files$: Observable<FileDisplay[]>;
     currentUrl = '';
     displayedColumns: string[] = ['name', 'size', 'mimetype', 'mtime', 'actions'];
     dataSource = new MatTableDataSource();
@@ -27,7 +27,10 @@ export class FileListComponent implements OnInit {
     /**
      * Constructor Creates an instance of FileListComponent.
      */
-    constructor(private fileService: FilesService, private route: ActivatedRoute, private router: Router) {}
+    constructor(private fileService: FilesService, private route: ActivatedRoute, private router: Router) {
+        // we connect the fileService fileList to our list
+        this.files$ = this.fileService.fileList$;
+    }
 
     ngOnInit() {
         // we susbribe to the url changes and try to load the files for current path.
@@ -39,13 +42,14 @@ export class FileListComponent implements OnInit {
 
     getFiles(theSegments: UrlSegment[]): void {
         this.currentUrl = theSegments.join('/');
-        this.fileService.getFiles(this.currentUrl).subscribe(files => {
-            this.files = files;
-            this.dataSource.data = this.files;
+        this.fileService.getFiles(this.currentUrl);
+        // .subscribe(files => {
+        //     this.files$ = files;
+        //     this.dataSource.data = this.files$;
 
-            // we reasign the sort from the component to the data source
-            this.dataSource.sort = this.sort;
-        });
+        //     // we reasign the sort from the component to the data source
+        //     this.dataSource.sort = this.sort;
+        // });
     }
 
     entityClicked(entity): void {

@@ -11,6 +11,7 @@ import { BytesPipe } from './pipes/bytes.pipe';
 import { FileWindowComponent } from './file-window/file-window.component';
 import { UploadModule } from './upload/upload.module';
 import { NavActionBarComponent } from './nav-action-bar/nav-action-bar.component';
+import { FilesService } from './service/files.service';
 
 @NgModule({
     declarations: [AppComponent, FileListComponent, BytesPipe, FileWindowComponent, NavActionBarComponent],
@@ -26,7 +27,7 @@ import { NavActionBarComponent } from './nav-action-bar/nav-action-bar.component
         MatButtonModule,
         UploadModule,
     ],
-    providers: [],
+    providers: [FilesService],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

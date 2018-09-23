@@ -51,22 +51,19 @@ export class UploadComponent implements OnInit {
 
     /** Initializes the subscription to the fileComplete Subject */
     ngOnInit(): void {
-        this.uploadService.fileComplete.subscribe(this.pushCompletedFileToFileServiceList);
+        // FIXME: the need to use this .bind() is a code-smell, should fix it.
+        this.uploadService.fileComplete.subscribe(this.pushCompletedFileToFileServiceList.bind(this));
     }
 
     /**
      * Here we map the uploaded file interface to the file view interface
-     * and we push it to the file-listing service
+     * and we push it to the file-listing service.
      *
-     * @param {FileUploadInterface} completedFile
+     * @param {FileUploadInterface} completedFile:File
      */
     pushCompletedFileToFileServiceList({ data }) {
         console.log('completed:', data);
-        const readyFile: FileDisplay = {
-            ...data,
-            mimeType: data.type,
-            mtime: data.lastModified,
-        };
+        this.fileService.prepend(data);
     }
 
     /** detects when the fileinput element changes and triggers the upload process in the service */
