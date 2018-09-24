@@ -1,10 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FileDisplay } from '../service/file-display';
 import { FilesService } from '../service/files.service';
-import { ActivatedRoute, UrlSegment, RouterEvent, Router } from '@angular/router';
-import { Location } from '@angular/common';
+import { ActivatedRoute, UrlSegment, Router } from '@angular/router';
 import { MatSort, MatTableDataSource } from '@angular/material';
-import { Observable } from 'rxjs';
+import { Observable, noop } from 'rxjs';
 
 // check material icons list at: https://material.io/tools/icons/?icon=delete_forever&style=baseline
 
@@ -19,7 +18,7 @@ export class FileListComponent implements OnInit {
     files$: Observable<FileDisplay[]>;
     currentUrl = '';
     displayedColumns: string[] = ['name', 'size', 'mimetype', 'mtime', 'actions'];
-    dataSource = new MatTableDataSource();
+    dataSource: MatTableDataSource<FileDisplay>;
 
     @ViewChild(MatSort)
     sort: MatSort;
@@ -32,26 +31,48 @@ export class FileListComponent implements OnInit {
         this.files$ = this.fileService.fileList$;
     }
 
+    /**
+     * Subscribe to URL changes
+     * call to init table data
+     */
     ngOnInit() {
         // we susbribe to the url changes and try to load the files for current path.
-        this.route.url.subscribe(segments => this.getFiles(segments));
+        this.route.url.subscribe(segments => this.updateViewToUrlChange(segments));
 
-        // init the material table sort
+        this.initTableData();
+    }
+
+    /**
+     * Sets up the data from the data table
+     * the data table template could only use the files$ Observable, but I couldn't sort sorting ¬¬
+     */
+    initTableData(): void {
+        this.dataSource = new MatTableDataSource();
+
+        // connect the material table sort, only need to set it once
         this.dataSource.sort = this.sort;
+
+        // init the fileList$ subscription to table data source
+        this.files$.subscribe(fileList => {
+            this.dataSource.data = fileList;
+        });
     }
 
-    getFiles(theSegments: UrlSegment[]): void {
+    /**
+     * react to URL changes
+     */
+    updateViewToUrlChange(theSegments: UrlSegment[]): void {
         this.currentUrl = theSegments.join('/');
-        this.fileService.getFiles(this.currentUrl);
-        // .subscribe(files => {
-        //     this.files$ = files;
-        //     this.dataSource.data = this.files$;
 
-        //     // we reasign the sort from the component to the data source
-        //     this.dataSource.sort = this.sort;
-        // });
+        // tell the file service to get the corresponding folder listing
+        this.fileService.getFiles(this.currentUrl);
     }
 
+    /**
+     * react to a row click
+     *
+     * @param {*} entity
+     */
     entityClicked(entity): void {
         // for now we just deal with folders
         if (entity.mimetype === DIRECTORY_MIME) {
@@ -60,14 +81,18 @@ export class FileListComponent implements OnInit {
     }
 
     deleteFileButtonClicked(entity: FileDisplay) {
-        console.log('want to delete ', this.currentUrl, entity.name);
+        console.log('want to delete ', entity.name);
         if (
             window.confirm(`Do you really want to delete: ${entity.name} ?
 This can not be undone.`)
         ) {
-            this.fileService.delete(this.currentUrl, entity.name).subscribe(response => {
-                console.log('deleted', response);
-            });
+            this.fileService.delete(this.currentUrl, entity.name).subscribe(
+                noop, // here we should show a notification
+                err => {
+                    console.log('COULD NOT DELETE: ', err);
+                    alert('Could not delete the file, we have a problem, there´s an error in the console!');
+                }
+            );
         }
     }
 }

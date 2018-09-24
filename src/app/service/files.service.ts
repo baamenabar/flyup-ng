@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FileDisplay } from './file-display';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
-import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import { UploadService } from '../upload/service/upload.service';
 
@@ -21,14 +21,6 @@ export class FilesService {
     fileList$: Observable<FileDisplay[]>;
 
     /**
-     * Here we keep the url up to date for easy access of all who use this service.
-     * Should this be an observable? I guess it would be overkill
-     *
-     * hummm... but mazbe a getter?
-     */
-    currentUrl: string;
-
-    /**
      * this is the core data structure of this service,
      * if it's not related to the files list, consider moving it to another service.
      */
@@ -37,9 +29,7 @@ export class FilesService {
     /** TODO: move this to an env var @see #6 */
     private filesApiUrl = 'http://localhost:3000/api/media/';
 
-    constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router) {
-        // first of all we need to know where we are and set a "compass" so we can always know
-        this.route.url.subscribe(segments => (this.currentUrl = segments.join('/')));
+    constructor(private http: HttpClient, private route: ActivatedRoute) {
         this.fileList = new BehaviorSubject([]);
         this.fileList$ = this.fileList.asObservable();
     }
@@ -55,17 +45,24 @@ export class FilesService {
         // simple replace to get simple folder friendly names.
         const cleanFolderName = folderName.replace(/[^a-zA-Z0-9_-]/gm, '');
         return this.http.post(this.filesApiUrl + targetPath, { name: cleanFolderName }).pipe(
-            tap(() => {
-                console.log('created: refresh the file list');
+            tap(response => {
+                console.log('created:', response);
+
+                // we don't see the current url in  service, so we reuse the one passed by the component
+                this.getFiles(targetPath);
             })
         );
     }
 
-    delete(targetPath, entityName) {
-        console.log('service wants to delete: ', this.filesApiUrl + targetPath + '/' + entityName);
+    delete(targetPath, entityName): Observable<any> {
+        // console.log('service wants to delete: ', this.filesApiUrl + targetPath + '/' + entityName);
         return this.http.delete(this.filesApiUrl + targetPath + '/' + entityName).pipe(
             tap(() => {
                 console.log('deleted: refresh the file list');
+
+                // create a new list with all the items not matching the entityName (cloning the store)
+                const newFileList: FileDisplay[] = this.fileList.getValue().filter(item => item.name !== entityName);
+                this.fileList.next(newFileList);
             })
         );
     }

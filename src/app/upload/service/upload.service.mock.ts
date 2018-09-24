@@ -19,6 +19,7 @@ export const MockUploadService = {
 export const mockedFileList: FileUploadInterface[] = [
     {
         data: new File([], 'someTestFilename.jpg'),
+        targetDir: '',
         status: 'checking',
         inProgress: false,
         progress: 50,
@@ -27,6 +28,7 @@ export const mockedFileList: FileUploadInterface[] = [
     },
     {
         data: new File([], 'test2.jpg'),
+        targetDir: '',
         status: 'waiting',
         inProgress: false,
         progress: 1,

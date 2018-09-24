@@ -27,14 +27,20 @@ export class UploadService {
 
     constructor(private http: HttpClient) {}
 
-    // this should return an observable so the template can react when we are done.
-    addFiles(selectedFiles: FileList) {
+    /**
+     * Get the list of files and prepare them for uploading
+     *
+     * @param selectedFiles to be uploaded.
+     * @param [targetDir=''] directory to post the files to.
+     */
+    addFiles(selectedFiles: FileList, targetDir: string = '') {
         // Why on earth do we keep getting these array-like things back from the DOM?
         const filesCount = selectedFiles.length;
         for (let i = 0; i < filesCount; i++) {
             const file = selectedFiles[i];
             this.files.push({
                 data: file,
+                targetDir: targetDir,
                 status: 'in',
                 inProgress: false,
                 progress: 0,
@@ -77,8 +83,8 @@ export class UploadService {
         const fd = new FormData();
         fd.append(this.postFieldName, file.data);
 
-        // TODO: we need to update the route so we can post to any folder.
-        const req = new HttpRequest('POST', this.apiTarget, fd, { reportProgress: true });
+        console.log('will post to:', this.apiTarget + '/' + file.targetDir);
+        const req = new HttpRequest('POST', this.apiTarget + '/' + file.targetDir, fd, { reportProgress: true });
 
         file.inProgress = true;
         file.sub = this.http

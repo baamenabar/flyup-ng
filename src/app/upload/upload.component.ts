@@ -3,7 +3,7 @@ import { FileUploadInterface } from './file-upload.interface';
 import { UploadService } from './service/upload.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { FilesService } from '../service/files.service';
-import { FileDisplay } from '../service/file-display';
+import { ActivatedRoute } from '@angular/router';
 
 /**
  *  UploadComponent handles the uploading of images and their progres state
@@ -38,14 +38,21 @@ export class UploadComponent implements OnInit {
     /** List of active or failed uploads */
     files: FileUploadInterface[];
 
+    private currentUrl: string;
+
     /**
      * Creates an instance of UploadComponent.
      * @param  uploadService: We inyect the upload service to hold the list of files to be uploaded
      *                        handle the http connections for each
      *                        and handle any retry or cancel events triggered by the user.
      */
-    constructor(private uploadService: UploadService, private fileService: FilesService) {
-        // not happy about this pattern. But "it will do for now"
+    constructor(
+        private uploadService: UploadService,
+        private fileService: FilesService,
+        private route: ActivatedRoute
+    ) {
+        this.route.url.subscribe(segments => (this.currentUrl = segments.join('/')));
+        // not happy about this pattern (should be an observable). But "it will do for now"
         this.files = uploadService.files;
     }
 
@@ -69,7 +76,7 @@ export class UploadComponent implements OnInit {
     /** detects when the fileinput element changes and triggers the upload process in the service */
     fileInputChanged(event) {
         const selectedFiles: FileList = event.target.files;
-        this.uploadService.addFiles(selectedFiles);
+        this.uploadService.addFiles(selectedFiles, this.currentUrl);
 
         // resets the input so Filelist is empty for the next time.
         event.target.value = null;
