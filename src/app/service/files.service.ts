@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FileDisplay } from './file-display';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
 import { tap } from 'rxjs/operators';
-import { UploadService } from '../upload/service/upload.service';
+import { environment } from 'src/environments/environment';
 
 /**
  * Files facade service.
@@ -26,14 +25,23 @@ export class FilesService {
      */
     private fileList: BehaviorSubject<FileDisplay[]>;
 
-    /** TODO: move this to an env var @see #6 */
-    private filesApiUrl = 'http://localhost:3000/api/media/';
+    /** Absolute path to the files API */
+    private filesApiUrl = environment.fileApiUrl;
 
-    constructor(private http: HttpClient, private route: ActivatedRoute) {
+    /**
+     * Sets up the "data store" and injects the httpClient
+     * @param {HttpClient} http Just service injection
+     */
+    constructor(private http: HttpClient) {
         this.fileList = new BehaviorSubject([]);
         this.fileList$ = this.fileList.asObservable();
     }
 
+    /**
+     * Requests a list of folders and files for a given path
+     *
+     * @param {string} routerUrl path from which to get the list of.
+     */
     getFiles(routerUrl: string) {
         console.log('requesting list for URL:', routerUrl);
         this.http.get<FileDisplay[]>(this.filesApiUrl + routerUrl).subscribe(list => {

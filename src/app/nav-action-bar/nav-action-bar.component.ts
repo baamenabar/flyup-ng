@@ -1,36 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FilesService } from '../service/files.service';
-import { Route, ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-nav-action-bar',
     templateUrl: './nav-action-bar.component.html',
     styleUrls: ['./nav-action-bar.component.scss'],
 })
-export class NavActionBarComponent implements OnInit {
+export class NavActionBarComponent {
     constructor(private fileService: FilesService, private router: Router, private route: ActivatedRoute) {}
-
-    ngOnInit() {}
-
-    onUploadButtonClicked() {
-        // do something here.
-    }
 
     /**
      * Handles click events from the add folder button.
-     * TODO: emmit from here
-     * TODO: move this out of this component.
      */
     addFolderButtonClicked() {
         this.fileService
             .createFolder(this.route.snapshot.url.join('/'), window.prompt('Folder name', ''))
             .subscribe(data => {
                 console.log('the data back', data);
+                // FIXME: notify th user that the operation has been done. @see #7
             });
     }
 
     /**
-     * TODO: use a service to deal with routing
+     * TODO: emmit so the parent component handles the routing, same for other butons.
+     * ...or make the button a link with a dynamic URL calculated here, in the component.
      */
     upOneLevelButtonClicked() {
         const urlParts = this.route.snapshot.url;

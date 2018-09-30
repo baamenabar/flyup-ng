@@ -3,6 +3,7 @@ import { HttpClient, HttpRequest, HttpEventType, HttpResponse, HttpErrorResponse
 import { FileUploadInterface } from '../file-upload.interface';
 import { Subject, of } from 'rxjs';
 import { map, tap, last, catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 /**
  * Service that holds files to be uploaded and handles their http connection.
@@ -20,7 +21,7 @@ export class UploadService {
     fileComplete = this.fileCompleteSource.asObservable();
 
     /** Target URL where to post the uploaded files to. This URL should be coming form the env configs */
-    private apiTarget = 'http://localhost:3000/api/media';
+    private filesApiUrl = environment.fileApiUrl;
 
     /** This sets the File post field name, it defults to the default in flyup-back. This should be set in the envs */
     private postFieldName = 'uploaded_file';
@@ -79,12 +80,18 @@ export class UploadService {
         this.files.forEach(file => this.uploadOneFile(file));
     }
 
+    /**
+     * Makes the upload POST request and handles all the possible reponses...
+     * this could probably be split in 3 methods, but he app is way to simple for that.
+     *
+     * @param {FileUploadInterface} file to upload
+     */
     private uploadOneFile(file: FileUploadInterface) {
         const fd = new FormData();
         fd.append(this.postFieldName, file.data);
 
-        console.log('will post to:', this.apiTarget + '/' + file.targetDir);
-        const req = new HttpRequest('POST', this.apiTarget + '/' + file.targetDir, fd, { reportProgress: true });
+        console.log('will post to:', this.filesApiUrl + file.targetDir);
+        const req = new HttpRequest('POST', this.filesApiUrl + file.targetDir, fd, { reportProgress: true });
 
         file.inProgress = true;
         file.sub = this.http
@@ -143,6 +150,11 @@ export class UploadService {
             });
     }
 
+    /**
+     * Removes the passed file from the upload queue.
+     *
+     * @param {FileUploadInterface} file to remove from the upload queue array
+     */
     private removeFileFromArray(file: FileUploadInterface) {
         const index = this.files.indexOf(file);
         if (index > -1) {
