@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 export const MockUploadService = {
     files: [],
 
-    fileComplete$: new Subject<FileUploadInterface>().asObservable(),
+    fileComplete: new Subject<FileUploadInterface>().asObservable(),
 
     addFiles(selectedFiles: FileList) {},
 

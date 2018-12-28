@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
  * Heavilly based on: https://www.codeproject.com/Articles/1236006/Build-a-file-upload-component-with-Angular-Materia
  */
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'root', // TODO: move this to the upload module
 })
 export class UploadService {
     files: FileUploadInterface[] = [];

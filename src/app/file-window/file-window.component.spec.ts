@@ -1,25 +1,33 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { MockComponent } from 'ng-mocks';
 import { FileWindowComponent } from './file-window.component';
+import { FileListComponent } from '../file-list/file-list.component';
+import { NavActionBarComponent } from '../nav-action-bar/nav-action-bar.component';
+import { UploadComponent } from '../upload/upload.component';
 
 describe('FileWindowComponent', () => {
-  let component: FileWindowComponent;
-  let fixture: ComponentFixture<FileWindowComponent>;
+    let component: FileWindowComponent;
+    let fixture: ComponentFixture<FileWindowComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ FileWindowComponent ]
-    })
-    .compileComponents();
-  }));
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [
+                FileWindowComponent,
+                MockComponent(NavActionBarComponent),
+                MockComponent(FileListComponent),
+                MockComponent(UploadComponent),
+            ],
+        }).compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(FileWindowComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(FileWindowComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });
