@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng-mocks';
 import { FileWindowComponent } from './file-window.component';
 import { FileListComponent } from '../file-list/file-list.component';
-import { NavActionBarComponent } from '../nav-action-bar/nav-action-bar.component';
+import { SampleComponent } from '../nav-action-bar/sample.component';
 import { UploadComponent } from '../upload/upload.component';
 
 describe('FileWindowComponent', () => {
@@ -14,7 +14,7 @@ describe('FileWindowComponent', () => {
         TestBed.configureTestingModule({
             declarations: [
                 FileWindowComponent,
-                MockComponent(NavActionBarComponent),
+                MockComponent(SampleComponent),
                 MockComponent(FileListComponent),
                 MockComponent(UploadComponent),
             ],

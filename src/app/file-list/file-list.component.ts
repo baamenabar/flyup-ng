@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FileDisplay } from '../service/file-display';
-import { FilesService } from '../service/files.service';
+import { ThingsService } from '../service/things.service';
 import { ActivatedRoute, UrlSegment, Router } from '@angular/router';
 import { MatSort, MatTableDataSource } from '@angular/material';
 import { Observable, noop } from 'rxjs';
@@ -26,9 +26,9 @@ export class FileListComponent implements OnInit {
     /**
      * Constructor Creates an instance of FileListComponent.
      */
-    constructor(private fileService: FilesService, private route: ActivatedRoute, private router: Router) {
-        // we connect the fileService fileList to our list
-        this.files$ = this.fileService.fileList$;
+    constructor(private thingsService: ThingsService, private route: ActivatedRoute, private router: Router) {
+        // we connect the thingsService fileList to our list
+        this.files$ = this.thingsService.fileList$;
     }
 
     /**
@@ -65,7 +65,7 @@ export class FileListComponent implements OnInit {
         this.currentUrl = theSegments.join('/');
 
         // tell the file service to get the corresponding folder listing
-        this.fileService.getFiles(this.currentUrl);
+        this.thingsService.getFiles(this.currentUrl);
     }
 
     /**
@@ -86,7 +86,7 @@ export class FileListComponent implements OnInit {
             window.confirm(`Do you really want to delete: ${entity.name} ?
 This can not be undone.`)
         ) {
-            this.fileService.delete(this.currentUrl, entity.name).subscribe(
+            this.thingsService.delete(this.currentUrl, entity.name).subscribe(
                 noop, // here we should show a notification
                 err => {
                     console.log('COULD NOT DELETE: ', err);

@@ -1,19 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FileDisplay } from './file-display';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { UrlSegment } from '@angular/router';
 
-/**
- * Files facade service.
- * Anything fealing with files is handled through here. Uploads? you connect to this service to do that
- * File list? the list is kept here.
- */
 @Injectable({
     providedIn: 'root',
 })
-export class FilesService {
+export class ThingsService {
     /**
      * This is what we expose, and observable of our internal subject
      */
@@ -37,6 +33,13 @@ export class FilesService {
         this.fileList$ = this.fileList.asObservable();
     }
 
+    doAction(): void {
+        console.log('action done');
+    }
+
+    getThings(segments: UrlSegment[]): Observable<any[]> {
+        return of([{ label: 'aaa', value: 1 }, { label: 'bbb', value: 2 }]);
+    }
     /**
      * Requests a list of folders and files for a given path
      *

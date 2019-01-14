@@ -10,11 +10,11 @@ import { MatTableModule, MatSortModule, MatIconModule, MatButtonModule, MatToolb
 import { BytesPipe } from './pipes/bytes.pipe';
 import { FileWindowComponent } from './file-window/file-window.component';
 import { UploadModule } from './upload/upload.module';
-import { NavActionBarComponent } from './nav-action-bar/nav-action-bar.component';
-import { FilesService } from './service/files.service';
+import { SampleComponent } from './nav-action-bar/sample.component';
+import { ThingsService } from './service/things.service';
 
 @NgModule({
-    declarations: [AppComponent, FileListComponent, BytesPipe, FileWindowComponent, NavActionBarComponent],
+    declarations: [AppComponent, FileListComponent, BytesPipe, FileWindowComponent, SampleComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
@@ -27,7 +27,7 @@ import { FilesService } from './service/files.service';
         MatButtonModule,
         UploadModule,
     ],
-    providers: [FilesService],
+    providers: [ThingsService],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

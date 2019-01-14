@@ -2,7 +2,7 @@ import { Component, Input, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { FileUploadInterface } from './file-upload.interface';
 import { UploadService } from './service/upload.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { FilesService } from '../service/files.service';
+import { ThingsService } from '../service/files.service';
 import { ActivatedRoute } from '@angular/router';
 
 /**
@@ -48,7 +48,7 @@ export class UploadComponent implements OnInit {
      */
     constructor(
         private uploadService: UploadService,
-        private fileService: FilesService,
+        private fileService: ThingsService,
         private route: ActivatedRoute
     ) {
         this.route.url.subscribe(segments => (this.currentUrl = segments.join('/')));

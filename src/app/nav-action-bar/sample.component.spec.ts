@@ -1,23 +1,25 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NavActionBarComponent } from './nav-action-bar.component';
+import { SampleComponent } from './sample.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { MatIconModule, MatToolbarModule } from '@angular/material';
+import { ThingsService } from '../service/things.service';
 
 describe('NavActionBarComponent', () => {
-    let component: NavActionBarComponent;
-    let fixture: ComponentFixture<NavActionBarComponent>;
+    let component: SampleComponent;
+    let fixture: ComponentFixture<SampleComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [NavActionBarComponent],
-            imports: [MatIconModule, MatToolbarModule, RouterTestingModule, HttpClientModule],
+            declarations: [SampleComponent, ThingsListComponent],
+            imports: [MatToolbarModule, RouterTestingModule, HttpClientModule],
+            providers: [ThingsService],
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(NavActionBarComponent);
+        fixture = TestBed.createComponent(SampleComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
