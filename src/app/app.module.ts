@@ -12,6 +12,7 @@ import { FileWindowComponent } from './file-window/file-window.component';
 import { UploadModule } from './upload/upload.module';
 import { NavActionBarComponent } from './nav-action-bar/nav-action-bar.component';
 import { FilesService } from './service/files.service';
+import { FlyupNgLibModule } from 'flyup-ng-lib';
 
 @NgModule({
     declarations: [AppComponent, FileListComponent, BytesPipe, FileWindowComponent, NavActionBarComponent],
@@ -26,6 +27,7 @@ import { FilesService } from './service/files.service';
         MatIconModule,
         MatButtonModule,
         UploadModule,
+        FlyupNgLibModule,
     ],
     providers: [FilesService],
     bootstrap: [AppComponent],
