@@ -11,7 +11,7 @@ describe('UploadService', () => {
         });
     });
 
-    it('should be created', inject([UploadService], (service: UploadService) => {
+    test('should be created', inject([UploadService], (service: UploadService) => {
         expect(service).toBeTruthy();
     }));
 });

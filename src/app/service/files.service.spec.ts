@@ -11,7 +11,7 @@ describe('FilesService', () => {
         });
     });
 
-    it('should be created', inject([FilesService], (service: FilesService) => {
+    test('should be created', inject([FilesService], (service: FilesService) => {
         expect(service).toBeTruthy();
     }));
 });
